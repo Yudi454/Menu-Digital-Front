@@ -1,0 +1,48 @@
+{
+    "Comidas": [
+      {
+        "Nombre": "Hamburgesa",
+        "Precio": "750",
+        "Imagen": "./ImagenesDePrueba/hamburguesa.jpg",
+        "id": 1
+      },
+      {
+        "Nombre": "Hamburgesa",
+        "Precio": "750",
+        "Imagen": "./ImagenesDePrueba/hamburguesa.jpg",
+        "id": 2
+      }
+    ],
+    "Bebidas" : [
+      {
+        "Nombre": "Coca-Cola 500ml",
+        "Precio": "400",
+        "Imagen": "./ImagenesDePrueba/Coca-500ml.png",
+        "id": 1
+      },
+      {
+        "Nombre": "Coca-Cola 500ml",
+        "Precio": "400",
+        "Imagen": "./ImagenesDePrueba/Coca-500ml.png",
+        "id": 2
+      },
+      {
+        "Nombre": "Coca-Cola 500ml",
+        "Precio": "400",
+        "Imagen": "./ImagenesDePrueba/Coca-500ml.png",
+        "id": 3
+      },
+      {
+        "Nombre": "Coca-Cola 500ml",
+        "Precio": "400",
+        "Imagen": "./ImagenesDePrueba/Coca-500ml.png",
+        "id": 4
+      }
+    ],
+    "Usuario" : [
+      {
+        "Nombre" : "Admin",
+        "Contraseña" : "Admin123"
+      }
+    ]
+  }

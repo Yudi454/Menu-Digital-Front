@@ -1,0 +1,42 @@
+/* table{
+    width: fit-content !important;
+} */
+
+.Contenedor-Tabla{
+    overflow-x: auto;
+    display: flex;
+    justify-content: center;
+}
+
+.Contenedor-Tabla-Chica{
+    overflow-x: auto;
+    display: flex;
+    justify-content: center;
+
+}
+
+.imagenTablas{
+    width: 14vh !important;
+}
+
+  /* Resolución para Pantallas de Celulares */  
+  @media (max-width: 767px) {
+    .Contenedor-Tabla{
+        overflow-x: auto;
+        display: block;
+    }
+      
+}
+
+.input-busqueda{
+    border: 1px solid #000; /* Ancho y color del borde */
+}
+
+.modal-dialog{
+    margin-top: 15vh !important;
+}
+
+.seleccionado{
+    border: 1px solid black;
+    border-radius: 15px 15px 0px 0px;
+}
