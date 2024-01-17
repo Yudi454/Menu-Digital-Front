@@ -23,11 +23,11 @@ const CrearImagenPromocional = () => {
   let posicionSegunda = ""
   let posicionTercera = ""
 
-                    {if (imagenesCarrusel) {
-                      posicionPrimera = imagenesCarrusel.find((imagen) => imagen.Position === "Primera")
-                      posicionSegunda = imagenesCarrusel.find((imagen) => imagen.Position === "Segunda")
-                      posicionTercera = imagenesCarrusel.find((imagen) => imagen.Position === "Tercera")
-                    }}
+{if (imagenesCarrusel) {
+posicionPrimera = imagenesCarrusel.find((imagen) => imagen.Position === "Primera")
+posicionSegunda = imagenesCarrusel.find((imagen) => imagen.Position === "Segunda")
+posicionTercera = imagenesCarrusel.find((imagen) => imagen.Position === "Tercera")
+}}
 
   const esquemaImagenPromocional = Yup.object().shape({
     Imagen: Yup.string().required("El nombre es requerido"),
