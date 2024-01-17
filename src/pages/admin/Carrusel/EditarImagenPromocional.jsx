@@ -51,7 +51,7 @@ const EditarImagenPromocional = ({ show, setShow, handleClose }) => {
             formData.append("Function", "Promocional");
 
             const response = await axios.put(
-              `${back}/ImgCarrusel${setSelectId}`,
+              `${back}/ImgCarrusel/${selectId}`,
               formData,
               {
                 headers: {
@@ -60,7 +60,7 @@ const EditarImagenPromocional = ({ show, setShow, handleClose }) => {
               }
             );
 
-            TraerProductos();
+            traerImagenesCarrusel();
             handleClose();
             formik.resetForm();
 
@@ -89,15 +89,15 @@ const EditarImagenPromocional = ({ show, setShow, handleClose }) => {
     establecerDatos();
   }, [imagen]);
 
-  const posicionPrimera = imagenesCarrusel.find(
-    (imagen) => imagen.Position === "Primera"
-  );
-  const posicionSegunda = imagenesCarrusel.find(
-    (imagen) => imagen.Position === "Segunda"
-  );
-  const posicionTercera = imagenesCarrusel.find(
-    (imagen) => imagen.Position === "Tercera"
-  );
+  let posicionPrimera = ""
+  let posicionSegunda = ""
+  let posicionTercera = ""
+
+                    {if (imagenesCarrusel) {
+                      posicionPrimera = imagenesCarrusel.find((imagen) => imagen.Position === "Primera")
+                      posicionSegunda = imagenesCarrusel.find((imagen) => imagen.Position === "Segunda")
+                      posicionTercera = imagenesCarrusel.find((imagen) => imagen.Position === "Tercera")
+                    }}
 
   return (
     <>

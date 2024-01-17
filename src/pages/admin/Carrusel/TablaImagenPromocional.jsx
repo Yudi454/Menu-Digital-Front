@@ -13,7 +13,6 @@ const TablaImagenPromocional = () => {
 
   const back = import.meta.env.VITE_API_BACK;
 
-  const [imagenEliminada, setImagenEliminada] = useState(false);
   const [show, setShow] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [imagenesMostrar, setImagenesMostrar] = useState();
@@ -23,9 +22,7 @@ const TablaImagenPromocional = () => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  useEffect(() => {
-    traerImagenesCarrusel();
-  }, [imagenEliminada]);
+
 
   
   const indexOfLastImagen = currentPage * imagenesPerPage;
@@ -64,12 +61,12 @@ const TablaImagenPromocional = () => {
         cancelButtonColor: "#d33",
         confirmButtonText: "Si, estoy seguro!",
         cancelButtonText: "No, mejor no",
-      }).then((result) => {
+      }).then( async (result) => {
         if (result.isConfirmed) {
-          const res = axios.delete(`${back}/ImgCarrusel/${id}`);
+          const res = await axios.delete(`${back}/ImgCarrusel/${id}`);
           console.log(res);
 
-          setImagenEliminada(true);
+          traerImagenesCarrusel();
 
           Swal.fire(
             "Imagen eliminada!",

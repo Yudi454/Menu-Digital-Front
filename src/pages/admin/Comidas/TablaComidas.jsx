@@ -13,7 +13,6 @@ const TablaComidas = () => {
 
   const back = import.meta.env.VITE_API_BACK;
 
-  const [comidaEliminada, setComidaEliminada] = useState(false);
   const [show, setShow] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [comidasMostrar, setComidasMostrar] = useState();
@@ -79,7 +78,7 @@ const TablaComidas = () => {
           const res = await axios.delete(`${back}/Comida/${id}`);
           console.log(res);
           
-          setComidaEliminada(true);
+          TraerProductos()
           
           Swal.fire(
             "Comida eliminada!",
@@ -92,15 +91,6 @@ const TablaComidas = () => {
         console.log(error);
       }
     };
-    
-      useEffect(() => {
-          if (comidaEliminada) {
-            TraerProductos();
-            setComidaEliminada(false)
-          }
-      }, [comidaEliminada]);
-      
-    
     
     return (
       <>

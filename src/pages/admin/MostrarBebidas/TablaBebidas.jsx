@@ -25,48 +25,45 @@ const TablaBebidas = () => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  useEffect(() => {
-    TraerProductos();
-  }, [bebidaEliminada]);
-
+  
   const indexOfLastBebida = currentPage * bebidasPerPage;
   const indexOfFirstBebida = indexOfLastBebida - bebidasPerPage;
-
+  
   useEffect(() => {
     if (Bebidas) {
       const currentBebidas = Bebidas.slice(
         indexOfFirstBebida,
         indexOfLastBebida
-      );
-      setBebidasMostrar(currentBebidas);
-    }
-  }, [Bebidas, indexOfFirstBebida, indexOfLastBebida]);
-
-  const paginate = (pageNumber) => {
-    setCurrentPage(pageNumber);
-  };
-
-  useEffect(() => {
-    if (bebida == undefined && selectId) {
-      bebidaPorId();
-    }
-  }, [selectId]);
-
-  // Función para manejar cambios en el campo de búsqueda
-  const handleSearchChange = (e) => {
+        );
+        setBebidasMostrar(currentBebidas);
+      }
+    }, [Bebidas, indexOfFirstBebida, indexOfLastBebida]);
+    
+    const paginate = (pageNumber) => {
+      setCurrentPage(pageNumber);
+    };
+    
+    useEffect(() => {
+      if (bebida == undefined && selectId) {
+        bebidaPorId();
+      }
+    }, [selectId]);
+    
+    // Función para manejar cambios en el campo de búsqueda
+    const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
   };
 
   useEffect(() => {
     if (Bebidas && Bebidas.length > 0) {
       const filteredBebidas = Bebidas.filter((bebida) =>
-        bebida.name.toLowerCase().includes(searchTerm.toLowerCase())
+      bebida.name.toLowerCase().includes(searchTerm.toLowerCase())
       );
-
+      
       setBebidaFiltrada(filteredBebidas);
     }
   }, [Bebidas, searchTerm]);
-
+  
   const eliminarBebida = (id) => {
     try {
       Swal.fire({
@@ -78,13 +75,13 @@ const TablaBebidas = () => {
         cancelButtonColor: "#d33",
         confirmButtonText: "Si, estoy seguro!",
         cancelButtonText: "No, mejor no",
-      }).then((result) => {
+      }).then( async (result) => {
         if (result.isConfirmed) {
-          const res = axios.delete(`${back}/Bebida/${id}`);
+          const res = await axios.delete(`${back}/Bebida/${id}`);
           console.log(res);
-
+          
           setBebidaEliminada(true);
-
+          
           Swal.fire(
             "Bebida eliminada!",
             "Eliminación realzada exitosamente",
@@ -96,6 +93,11 @@ const TablaBebidas = () => {
       console.log(error);
     }
   };
+  
+  useEffect(() => {
+    TraerProductos();
+    setBebidaEliminada(false)
+  }, [bebidaEliminada]);
 
   return (
     <>

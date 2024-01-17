@@ -19,6 +19,16 @@ const CrearImagenPromocional = () => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  let posicionPrimera = ""
+  let posicionSegunda = ""
+  let posicionTercera = ""
+
+                    {if (imagenesCarrusel) {
+                      posicionPrimera = imagenesCarrusel.find((imagen) => imagen.Position === "Primera")
+                      posicionSegunda = imagenesCarrusel.find((imagen) => imagen.Position === "Segunda")
+                      posicionTercera = imagenesCarrusel.find((imagen) => imagen.Position === "Tercera")
+                    }}
+
   const esquemaImagenPromocional = Yup.object().shape({
     Imagen: Yup.string().required("El nombre es requerido"),
 
@@ -77,13 +87,10 @@ const CrearImagenPromocional = () => {
     },
   });
 
-  const posicionPrimera = imagenesCarrusel.find((imagen) => imagen.Position === "Primera")
-  const posicionSegunda = imagenesCarrusel.find((imagen) => imagen.Position === "Segunda")
-  const posicionTercera = imagenesCarrusel.find((imagen) => imagen.Position === "Tercera")
 
   return (
     <>
-    {imagenesCarrusel.length === 3 ? (
+    {imagenesCarrusel && imagenesCarrusel.length === 3 ? (
       <div className="text-center">
         <h3>No puede crear mas imagenes hasta que eimine alguna</h3>
       </div>
