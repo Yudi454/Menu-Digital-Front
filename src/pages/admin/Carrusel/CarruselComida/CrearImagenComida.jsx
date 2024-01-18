@@ -26,8 +26,8 @@ const CrearImagenComida = () => {
 
 {if (imagenesComidas) {
 posicionPrimera = imagenesComidas.find((imagen) => imagen.Position === "Primera")
-posicionTercera = imagenesComidas.find((imagen) => imagen.Position === "Tercera")
 posicionSegunda = imagenesComidas.find((imagen) => imagen.Position === "Segunda")
+posicionTercera = imagenesComidas.find((imagen) => imagen.Position === "Tercera")
 }}
 
 
@@ -91,10 +91,15 @@ posicionSegunda = imagenesComidas.find((imagen) => imagen.Position === "Segunda"
 
   return (
     <>
-       <Button variant="primary" onClick={handleShow}>
+      {imagenesComidas && imagenesComidas.length === 3 ? (
+      <div className="text-center">
+        <h3>No puede crear mas imagenes hasta que eimine alguna</h3>
+      </div>
+    ): ( 
+      <Button variant="primary" onClick={handleShow}>
         Crear Imagen
       </Button>
-
+    )}
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Formulario para Crear una Imagen en el Carrusel de Comidas</Modal.Title>

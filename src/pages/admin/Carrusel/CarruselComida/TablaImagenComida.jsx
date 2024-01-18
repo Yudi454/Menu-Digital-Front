@@ -3,7 +3,7 @@ import { Button, Table, Modal } from "react-bootstrap";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { ProductosContext } from "../../../../context/Context";
-import EditarImagenPromocional from "../EditarImagenPromocional";
+import EditarImagenComida from "./EditarImagenComida"
 
 const TablaImagenComida = () => {
 
@@ -142,7 +142,7 @@ const eliminarImagen = (id) => {
             )}
           </tbody>
         </Table>
-        <EditarImagenPromocional show={show} setShow={setShow} handleClose={handleClose} />
+        <EditarImagenComida show={show} setShow={setShow} handleClose={handleClose} />
       </div>
       <div className="pagination d-flex justify-content-center">
         {imagenesComidas &&
