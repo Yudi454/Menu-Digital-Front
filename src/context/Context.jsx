@@ -1,5 +1,6 @@
 import axios from "axios"
 import { createContext, useEffect, useState } from "react"
+import { useAsyncError } from "react-router-dom"
 
 
 export const ProductosContext = createContext()
@@ -10,9 +11,7 @@ export const ProductosProvider = ({children}) => {
     const [comida, setComida] = useState()
     const [bebida, setBebida] = useState()
     const url = import.meta.env.VITE_API_BACK
-    const URLComidas = import.meta.env.VITE_API_COMIDAS
-    const URLBebidas = import.meta.env.VITE_API_BEBIDAS
-    const URLUsuarios = import.meta.env.VITE_API_USUARIO
+    const [Token, setToken] = useState()
     const [Comidas, setComidas] = useState()
     const [Bebidas, setBebidas] = useState()
     const [Usuarios, setUsuarios] = useState()
@@ -24,6 +23,13 @@ export const ProductosProvider = ({children}) => {
     const [imagenesComidas, setImagenesComidas] = useState()
     const [imagenesBebidas, setImagenesBebidas] = useState()
     
+    useEffect(() => {
+        if (!Token) {
+            setToken(localStorage.getItem("Token"))
+        }
+    }, [Token])
+
+    console.log(Token);
 
     const TraerProductos = async () =>{
 
@@ -37,7 +43,6 @@ export const ProductosProvider = ({children}) => {
             setUsuarios(resUsuarios)
             setBebidas(resBebida)
             setComidas(resComida)
-            console.log(Comidas);
         } catch (error) {
             console.log(error);
         }
@@ -126,7 +131,8 @@ export const ProductosProvider = ({children}) => {
         imagen,
         setImagen,
         imagenesComidas,
-        imagenesBebidas
+        imagenesBebidas,
+        Token
 
     }
 

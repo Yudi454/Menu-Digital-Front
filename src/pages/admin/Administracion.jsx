@@ -142,18 +142,20 @@ const Administracion = () => {
                   </Col>
                 </Row>
                 {seleccionadoImagen === "comida" ? (
-            <div className="text-center">
-              <h1>Tabla Imagen Carrusel Comidas</h1>
-              <CrearImagenComida />
-              <TablaImagenComida />
-            </div>
-          ) : seleccionadoImagen === "bebida" && (
-            <div className="text-center">
-              <h1>Tabla Imagen Carrusel bebidas</h1>
-              <CrearImagenBebida />
-              <TablaImagenBebida />
-            </div>
-          )}
+                  <div className="text-center">
+                    <h1>Tabla Imagen Carrusel Comidas</h1>
+                    <CrearImagenComida />
+                    <TablaImagenComida />
+                  </div>
+                ) : (
+                  seleccionadoImagen === "bebida" && (
+                    <div className="text-center">
+                      <h1>Tabla Imagen Carrusel bebidas</h1>
+                      <CrearImagenBebida />
+                      <TablaImagenBebida />
+                    </div>
+                  )
+                )}
               </div>
             )
           )}

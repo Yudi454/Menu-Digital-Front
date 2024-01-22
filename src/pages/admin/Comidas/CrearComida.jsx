@@ -8,11 +8,13 @@ import { ProductosContext } from "../../../context/Context";
 import Swal from "sweetalert2";
 
 const CrearComida = () => {
-  const [show, setShow] = useState(false);  
+  const [show, setShow] = useState(false);
 
-  const {TraerProductos} = useContext(ProductosContext)
+  const { TraerProductos, PasarStates } = useContext(ProductosContext);
 
-  const back = import.meta.env.VITE_API_BACK
+  const {Token} = PasarStates
+
+  const back = import.meta.env.VITE_API_BACK;
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -48,17 +50,14 @@ const CrearComida = () => {
     Descripcion: "",
     Imagen: "",
   };
-
   const formik = useFormik({
     initialValues: valoresIniciales,
     validationSchema: esquemaComida,
     validateOnChange: true,
     validateOnBlur: true,
-    onSubmit: (values) => {
-      console.log(values);
-
+    onSubmit: async (values) => {
       try {
-        Swal.fire({
+        const result = await Swal.fire({
           title: "Estas seguro de crear esta comida?",
           text: "Luego la puede editar",
           icon: "warning",
@@ -67,42 +66,43 @@ const CrearComida = () => {
           cancelButtonColor: "#d33",
           confirmButtonText: "Si, estoy seguro!",
           cancelButtonText: "No, mejor no",
-        }).then( async (result) => {
-          if (result.isConfirmed) {
-
-            const formData = new FormData()
-            formData.append("name", values.Nombre);
-            formData.append("Price", values.Precio);
-            formData.append("Description", values.Descripcion);
-            formData.append("Image", values.Imagen)
-
-            console.log(formData);
-    
-            const response = await axios.post(`${back}/Comida`, formData,{
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                  },
-            });
-            
-            TraerProductos()
-            handleClose()
-            formik.resetForm()
-    
-            console.log(response.data.message);
-
-            Swal.fire(
-              "Comida creada!",
-              "Creación realzada exitosamente",
-              "success"
-            );
-          }
         });
-
+  
+        if (result.isConfirmed) {
+          const formData = new FormData();
+          formData.append("name", values.Nombre);
+          formData.append("Price", values.Precio);
+          formData.append("Description", values.Descripcion);
+          formData.append("Image", values.Imagen);
+  
+          console.log(Token);
+  
+          const response = await axios.post(`${back}/Comida`, formData, {
+            headers: {
+              "auth-token": Token,
+              "Content-Type": "multipart/form-data"
+            },
+          });
+          console.log(response);
+  
+          TraerProductos();
+          handleClose();
+          formik.resetForm();
+  
+  
+          Swal.fire(
+            "Comida creada!",
+            "Creación realizada exitosamente",
+            "success"
+          );
+        }
       } catch (error) {
-        console.log(error);
+        console.log("Error xd");
+        console.log(error.response.data);
       }
     },
   });
+  
   return (
     <>
       <Button variant="primary" onClick={handleShow}>
@@ -204,21 +204,23 @@ const CrearComida = () => {
                   type="file"
                   name="Imagen"
                   onChange={(e) => {
-                    formik.setFieldValue("Imagen", e.currentTarget.files[0])
+                    formik.setFieldValue("Imagen", e.currentTarget.files[0]);
                   }}
                   className={clsx(
-                    "form-control" , {
-                      "is-invalid" : formik.touched.Imagen && formik.errors.Imagen
-                    },{
-                      "is-valid" : formik.touched.Imagen && !formik.errors.Imagen
+                    "form-control",
+                    {
+                      "is-invalid":
+                        formik.touched.Imagen && formik.errors.Imagen,
+                    },
+                    {
+                      "is-valid":
+                        formik.touched.Imagen && !formik.errors.Imagen,
                     }
                   )}
                 />
                 {formik.touched.Imagen && formik.errors.Imagen && (
                   <div>
-                    <span className="text-danger">
-                      {formik.errors.Imagen}
-                    </span>
+                    <span className="text-danger">{formik.errors.Imagen}</span>
                   </div>
                 )}
               </Form.Group>

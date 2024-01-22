@@ -7,104 +7,113 @@ import axios from "axios";
 import { ProductosContext } from "../../../../context/Context";
 import Swal from "sweetalert2";
 
-
 const EditarImagenBebida = ({ show, setShow, handleClose }) => {
+  const { PasarStates, traerBebidasCarrusel } = useContext(ProductosContext);
 
-  const { PasarStates, imagenCarruselPorId, traerBebidasCarrusel } =
-  useContext(ProductosContext);
+  const { selectId, setSelectId, imagen, setImagen, imagenesBebidas } =
+    PasarStates;
 
-const { selectId, setSelectId, imagen, setImagen, imagenesBebidas } =
-  PasarStates;
+  const back = import.meta.env.VITE_API_BACK;
 
-const back = import.meta.env.VITE_API_BACK;
+  const esquemaImagenPromocional = Yup.object().shape({
+    Imagen: Yup.string(),
 
-const esquemaImagenPromocional = Yup.object().shape({
-  Imagen: Yup.string(),
+    Posicion: Yup.string().required("La posición es requerida"),
+  });
 
-  Posicion: Yup.string().required("La posición es requerida"),
-});
+  const valoresIniciales = {
+    Imagen: "",
+    Posicion: "",
+  };
 
-const valoresIniciales = {
-  Imagen: "",
-  Posicion: "",
-};
+  const formik = useFormik({
+    initialValues: valoresIniciales,
+    validationSchema: esquemaImagenPromocional,
+    validateOnChange: true,
+    validateOnBlur: true,
+    onSubmit: (values) => {
+      try {
+        Swal.fire({
+          title: "Estas seguro de editar esta imagen?",
+          text: "Luego lo puede modificar",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Si, estoy seguro!",
+          cancelButtonText: "No, mejor no",
+        }).then(async (result) => {
+          if (result.isConfirmed) {
+            const formData = new FormData();
+            formData.append("Image", values.Imagen);
+            formData.append("Position", values.Posicion);
+            formData.append("Function", "Bebida");
 
-const formik = useFormik({
-  initialValues: valoresIniciales,
-  validationSchema: esquemaImagenPromocional,
-  validateOnChange: true,
-  validateOnBlur: true,
-  onSubmit: (values) => {
-    try {
-      Swal.fire({
-        title: "Estas seguro de editar esta imagen?",
-        text: "Luego lo puede modificar",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Si, estoy seguro!",
-        cancelButtonText: "No, mejor no",
-      }).then(async (result) => {
-        if (result.isConfirmed) {
-          const formData = new FormData();
-          formData.append("Image", values.Imagen);
-          formData.append("Position", values.Posicion);
-          formData.append("Function", "Bebida");
+            const response = await axios.put(
+              `${back}/ImgCarrusel/${selectId}`,
+              formData,
+              {
+                headers: {
+                  "Content-Type": "multipart/form-data",
+                },
+              }
+            );
 
-          const response = await axios.put(
-            `${back}/ImgCarrusel/${selectId}`,
-            formData,
-            {
-              headers: {
-                "Content-Type": "multipart/form-data",
-              },
-            }
-          );
+            traerBebidasCarrusel();
+            handleClose();
+            formik.resetForm();
 
-          traerBebidasCarrusel();
-          handleClose();
-          formik.resetForm();
+            console.log(response.data.message);
 
-          console.log(response.data.message);
+            Swal.fire(
+              "Imagen editada!",
+              "Creación realzada exitosamente",
+              "success"
+            );
+          }
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    },
+  });
 
-          Swal.fire(
-            "Imagen editada!",
-            "Creación realzada exitosamente",
-            "success"
-          );
-        }
-      });
-    } catch (error) {
-      console.log(error);
+  const establecerDatos = async () => {
+    if (imagen) {
+      formik.setFieldValue("Posicion", imagen.Position);
     }
-  },
-});
+  };
 
-const establecerDatos = async () => {
-  if (imagen) {
-    formik.setFieldValue("Posicion", imagen.Position);
+  useEffect(() => {
+    establecerDatos();
+  }, [imagen]);
+
+  let posicionPrimera = "";
+  let posicionSegunda = "";
+  let posicionTercera = "";
+
+  {
+    if (imagenesBebidas) {
+      posicionPrimera = imagenesBebidas.find(
+        (imagen) => imagen.Position === "Primera"
+      );
+      posicionSegunda = imagenesBebidas.find(
+        (imagen) => imagen.Position === "Segunda"
+      );
+      posicionTercera = imagenesBebidas.find(
+        (imagen) => imagen.Position === "Tercera"
+      );
+    }
   }
-};
-
-useEffect(() => {
-  establecerDatos();
-}, [imagen]);
-
-let posicionPrimera = ""
-let posicionSegunda = ""
-let posicionTercera = ""
-
-                  {if (imagenesBebidas) {
-                    posicionPrimera = imagenesBebidas.find((imagen) => imagen.Position === "Primera")
-                    posicionSegunda = imagenesBebidas.find((imagen) => imagen.Position === "Segunda")
-                    posicionTercera = imagenesBebidas.find((imagen) => imagen.Position === "Tercera")
-                  }}
-
 
   return (
     <>
-           <Modal show={show} onHide={() =>{setSelectId(""), handleClose(), setImagen(undefined)}}>
+      <Modal
+        show={show}
+        onHide={() => {
+          setSelectId(""), handleClose(), setImagen(undefined);
+        }}
+      >
         <Modal.Header closeButton>
           <Modal.Title>Formulario para Editar la Imagen</Modal.Title>
         </Modal.Header>
@@ -194,7 +203,7 @@ let posicionTercera = ""
         </Form>
       </Modal>
     </>
-  )
-}
+  );
+};
 
-export default EditarImagenBebida
+export default EditarImagenBebida;

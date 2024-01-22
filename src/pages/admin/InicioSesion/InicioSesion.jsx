@@ -5,21 +5,21 @@ import * as Yup from "yup";
 import clsx from "clsx";
 import Swal from "sweetalert2";
 import { ProductosContext } from "../../../context/Context";
-import "../../../style/InicioSesion.css"
+import "../../../style/InicioSesion.css";
 import axios from "axios";
 
 const InicioSesion = () => {
   const { Usuario, PasarStates } = useContext(ProductosContext);
-  const {MostrarTabla, setMostrarTabla} = PasarStates
+  const { MostrarTabla, setMostrarTabla } = PasarStates;
 
-  const back = import.meta.env.VITE_API_BACK
+  const back = import.meta.env.VITE_API_BACK;
 
   const regexContraseña = /^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/;
 
   const esquemaInicioSesion = Yup.object().shape({
     Usuario: Yup.string()
       .required("El usuario es requerido")
-      .min(6, "El usuariod debe ser igual o mayor a 6 digitos")
+      .min(5, "El usuariod debe ser igual o mayor a 6 digitos")
       .max(15, "El usuario debe ser igual o menor a 15 digitos"),
 
     Contraseña: Yup.string()
@@ -45,17 +45,38 @@ const InicioSesion = () => {
     onSubmit: async (values) => {
       console.log(values);
       try {
-        const user = {
-          name: values.Usuario,
-          password: values.Contraseña
+        Swal.fire({
+          title: "Estas seguro de crear esta imagen?",
+          text: "Luego lo puede modificar",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Si, estoy seguro!",
+          cancelButtonText: "No, mejor no",
+        }).then(async (result) => {
+          if (result.isConfirmed) {
+          const user = {
+            name: values.Usuario,
+            password: values.Contraseña,
+          };
+
+          const response = await axios.post(`${back}/login`, user);
+
+          console.log(response.data.data.token);
+
+          localStorage.setItem("Token", response.data.data.token)
+
+          Swal.fire(
+            "Usuario Logueado!",
+            "Usuario Logueado exitosamente",
+            "success"
+          );
+
         }
-
-        const response = await axios.post(`${back}/login`, user)
-
-        console.log(response.data.message);
-
-        setMostrarTabla(true)
+        });
       } catch (error) {
+        setMostrarTabla(true);
         console.log(error);
       }
     },
@@ -75,7 +96,7 @@ const InicioSesion = () => {
                 type="text"
                 placeholder="Ingrese un usuario"
                 id="Usuario"
-                minLength={6}
+                minLength={5}
                 maxLength={15}
                 {...formik.getFieldProps("Usuario")}
                 className={clsx(

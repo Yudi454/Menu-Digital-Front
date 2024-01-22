@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Button, Table, Modal } from "react-bootstrap";
+import { Button, Table } from "react-bootstrap";
 import { ProductosContext } from "../../../context/Context";
 import EditarComida from "./EditarComida";
 import axios from "axios";
@@ -9,7 +9,7 @@ const TablaComidas = () => {
   const { Comidas, PasarStates, comidaPorId, TraerProductos } =
     useContext(ProductosContext);
 
-  const { selectId, setSelectId, comida, Bebidas } = PasarStates;
+  const { selectId, setSelectId, comida } = PasarStates;
 
   const back = import.meta.env.VITE_API_BACK;
 
@@ -22,7 +22,7 @@ const TablaComidas = () => {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  
+
   const indexOfLastComida = currentPage * comidasPerPage;
   const indexOfFirstComida = indexOfLastComida - comidasPerPage;
 
@@ -31,22 +31,21 @@ const TablaComidas = () => {
       const currentComidas = Comidas.slice(
         indexOfFirstComida,
         indexOfLastComida
-        );
-        setComidasMostrar(currentComidas);
-      }
-    }, [Comidas, indexOfFirstComida, indexOfLastComida]);
+      );
+      setComidasMostrar(currentComidas);
+    }
+  }, [Comidas, indexOfFirstComida, indexOfLastComida]);
 
   const paginate = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
-
 
   useEffect(() => {
     if (comida == undefined && selectId) {
       comidaPorId();
     }
   }, [selectId]);
-  
+
   // Función para manejar cambios en el campo de búsqueda
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
@@ -57,11 +56,11 @@ const TablaComidas = () => {
       const filteredComidas = Comidas.filter((comida) =>
         comida.name.toLowerCase().includes(searchTerm.toLowerCase())
       );
-      
+
       setComidaFiltrada(filteredComidas);
     }
   }, [Comidas, searchTerm]);
-  
+
   const eliminarComida = (id) => {
     try {
       Swal.fire({
@@ -73,27 +72,27 @@ const TablaComidas = () => {
         cancelButtonColor: "#d33",
         confirmButtonText: "Si, estoy seguro!",
         cancelButtonText: "No, mejor no",
-      }).then( async (result) => {
+      }).then(async (result) => {
         if (result.isConfirmed) {
           const res = await axios.delete(`${back}/Comida/${id}`);
           console.log(res);
-          
-          TraerProductos()
-          
+
+          TraerProductos();
+
           Swal.fire(
             "Comida eliminada!",
             "Eliminación realzada exitosamente",
             "success"
-            );
-          }
-        });
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    
-    return (
-      <>
+          );
+        }
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  return (
+    <>
       <div className="mt-3">
         <input
           className="input-busqueda"

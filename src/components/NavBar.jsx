@@ -18,6 +18,7 @@ function NavBar() {
             <Link className='nav-link' to={"/CatalogoComida"} >Comida</Link>
             <Link className='nav-link' to={"/CatalogoBebida"} >Bebida</Link>
             <Link className='nav-link' to={"/Administracion"}>Administracion</Link>
+            <Link className='nav-link' to={"/InicioSesion"}>Inicio Sesión</Link>
           </Nav>
         </Navbar.Collapse>
       </Container>

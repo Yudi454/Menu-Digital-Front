@@ -8,11 +8,11 @@ import { ProductosContext } from "../../../context/Context";
 import Swal from "sweetalert2";
 
 const EditarComida = ({ show, setShow, handleClose }) => {
-  const { PasarStates, comidaPorId, TraerProductos } = useContext(ProductosContext);
+  const { PasarStates, TraerProductos } = useContext(ProductosContext);
 
   const { selectId, setSelectId, comida, setComida } = PasarStates;
 
-  const back = import.meta.env.VITE_API_BACK
+  const back = import.meta.env.VITE_API_BACK;
 
   const regexSoloLetra = /^[A-Za-z]+( [A-Za-z]+)?$/;
   const regexDescripcion = /^(?!.*\s{3,}).*$/;
@@ -51,9 +51,7 @@ const EditarComida = ({ show, setShow, handleClose }) => {
     validateOnChange: true,
     validateOnBlur: true,
     onSubmit: async (values) => {
-
       try {
-
         Swal.fire({
           title: "Estas seguro de editar la comida?",
           text: "Puede cambiar los datos actualizados luego",
@@ -65,12 +63,11 @@ const EditarComida = ({ show, setShow, handleClose }) => {
           cancelButtonText: "No, mejor no",
         }).then(async (result) => {
           if (result.isConfirmed) {
-  
-            const formData = new FormData()
+            const formData = new FormData();
             formData.append("name", values.Nombre);
             formData.append("Price", values.Precio);
             formData.append("Description", values.Descripcion);
-            formData.append("Image", values.Imagen)
+            formData.append("Image", values.Imagen);
 
             const response = await axios.put(
               `${back}/Comida/${selectId}`,
@@ -80,14 +77,14 @@ const EditarComida = ({ show, setShow, handleClose }) => {
                   "Content-Type": "multipart/form-data",
                 },
               }
-              );
-    
-            TraerProductos()
-            handleClose()
-            formik.resetForm()
-            setComida(undefined)
-            setSelectId("")
-    
+            );
+
+            TraerProductos();
+            handleClose();
+            formik.resetForm();
+            setComida(undefined);
+            setSelectId("");
+
             console.log(response.data.message);
 
             Swal.fire(
@@ -97,7 +94,6 @@ const EditarComida = ({ show, setShow, handleClose }) => {
             );
           }
         });
-
       } catch (error) {
         console.log(error);
       }
@@ -106,17 +102,15 @@ const EditarComida = ({ show, setShow, handleClose }) => {
 
   const establecerDatos = async () => {
     if (comida) {
-
-        formik.setFieldValue("Nombre", comida.name),
+      formik.setFieldValue("Nombre", comida.name),
         formik.setFieldValue("Precio", comida.Price),
-        formik.setFieldValue("Descripcion", comida.Description)
+        formik.setFieldValue("Descripcion", comida.Description);
     }
-  }
+  };
 
   useEffect(() => {
-    establecerDatos()
-  
-  }, [comida])
+    establecerDatos();
+  }, [comida]);
 
   return (
     <>

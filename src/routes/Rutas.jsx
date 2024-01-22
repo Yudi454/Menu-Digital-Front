@@ -5,6 +5,7 @@ import Error404 from '../pages/Error/Error404'
 import Administracion from '../pages/admin/Administracion'
 import CatalogoComida from '../pages/catalogos/CatalogoComida'
 import CatalogoBebida from '../pages/catalogos/CatalogoBebida'
+import InicioSesion from '../pages/admin/InicioSesion/InicioSesion'
 
 const Rutas = () => {
   return (
@@ -15,6 +16,7 @@ const Rutas = () => {
             <Route path='/Administracion' element={<Administracion />} />
             <Route path='/CatalogoComida' element={<CatalogoComida />} />
             <Route path='/CatalogoBebida' element={<CatalogoBebida />} /> 
+            <Route path='/InicioSesion' element={<InicioSesion />} /> 
         </Routes>
     </>
   )
