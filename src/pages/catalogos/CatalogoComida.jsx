@@ -3,10 +3,10 @@ import { ProductosContext } from "../../context/Context";
 import { Card, Col, Container, Row } from "react-bootstrap";
 
 const CatalogoComida = () => {
-  const { Comidas, TraerProductos } = useContext(ProductosContext);
+  const { Comidas, TraerComidas } = useContext(ProductosContext);
 
   {
-    Comidas === undefined && TraerProductos();
+    Comidas === undefined && TraerComidas();
   }
 
   return (

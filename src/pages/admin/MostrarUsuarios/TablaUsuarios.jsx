@@ -6,7 +6,7 @@ import { ProductosContext } from "../../../context/Context";
 import EditarUsuario from "./EditarUsuario";
 
 const TablaUsuarios = () => {
-  const { PasarStates, TraerProductos, usuarioPorId } =
+  const { PasarStates, TraerUsuarios, usuarioPorId } =
     useContext(ProductosContext);
 
   const { selectId, setSelectId, Usuarios, Usuario } = PasarStates;
@@ -25,7 +25,7 @@ const TablaUsuarios = () => {
   const handleShow = () => setShow(true);
 
   useEffect(() => {
-    TraerProductos();
+    TraerUsuarios();
   }, [usuarioEliminado]);
 
   const indexOfLastUsuario = currentPage * usuariosPerPage;
@@ -144,7 +144,7 @@ const TablaUsuarios = () => {
                     <Button
                       onClick={() => {
                         eliminarUsuario(Usuario._id);
-                        TraerProductos();
+                        TraerUsuarios();
                       }}
                     >
                       Borrar
@@ -170,7 +170,7 @@ const TablaUsuarios = () => {
                     <Button
                       onClick={() => {
                         eliminarUsuario(Usuario._id);
-                        TraerProductos();
+                        TraerUsuarios();
                       }}
                     >
                       Borrar

@@ -17,7 +17,7 @@ export const ProductosProvider = ({children}) => {
     const [Usuarios, setUsuarios] = useState()
     const [Usuario, setUsuario] = useState()
     const [MostrarInicioSesion, setMostrarInicioSesion] = useState()
-    const [MostrarTabla, setMostrarTabla] = useState(true)
+    const [MostrarTabla, setMostrarTabla] = useState(false)
     const [imagenesCarrusel, setImagenesCarrusel] = useState()
     const [imagen, setImagen] = useState()
     const [imagenesComidas, setImagenesComidas] = useState()
@@ -31,6 +31,36 @@ export const ProductosProvider = ({children}) => {
 
     console.log(Token);
 
+    const TraerComidas = async () => {
+        try {
+            const resComidaBack = await axios.get(`${url}/Comida`)
+            const resComida = await resComidaBack.data
+            setComidas(resComida)
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const TraerBebidas = async () => {
+        try {
+            const resBebidaBack = await axios.get(`${url}/Bebida`)
+            const resBebida = await resBebidaBack.data
+            setBebidas(resBebida)
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const TraerUsuarios = async () => {
+        try {
+            const resUsuariosBack = await axios.get(`${url}/usuarios`)
+            const resUsuarios = await resUsuariosBack.data
+            setUsuarios(resUsuarios)
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     const TraerProductos = async () =>{
 
         try {
@@ -38,9 +68,11 @@ export const ProductosProvider = ({children}) => {
             const resComida = await resComidaBack.data
             const resBebidaBack = await axios.get(`${url}/Bebida`)
             const resBebida = await resBebidaBack.data
-            const resUsuariosBack = await axios.get(`${url}/usuarios`)
-            const resUsuarios = await resUsuariosBack.data
-            setUsuarios(resUsuarios)
+            if (Token) {
+                const resUsuariosBack = await axios.get(`${url}/usuarios`)
+                const resUsuarios = await resUsuariosBack.data
+                setUsuarios(resUsuarios)
+            }
             setBebidas(resBebida)
             setComidas(resComida)
         } catch (error) {
@@ -139,6 +171,9 @@ export const ProductosProvider = ({children}) => {
     const PasarDatos = {
         Comidas,
         Bebidas,
+        TraerComidas,
+        TraerBebidas,
+        TraerUsuarios,
         TraerProductos,
         PasarStates,
         comidaPorId,

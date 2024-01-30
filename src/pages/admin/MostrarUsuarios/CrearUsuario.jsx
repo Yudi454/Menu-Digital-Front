@@ -10,7 +10,7 @@ import Swal from "sweetalert2";
 const CrearUsuario = () => {
   const [show, setShow] = useState(false);
 
-  const { TraerProductos } = useContext(ProductosContext);
+  const { TraerUsuarios } = useContext(ProductosContext);
 
   const back = import.meta.env.VITE_API_BACK;
 
@@ -71,7 +71,7 @@ const CrearUsuario = () => {
 
             const response = await axios.post(`${back}/registro`, usuario);
 
-            TraerProductos();
+            TraerUsuarios();
             handleClose();
             formik.resetForm();
 

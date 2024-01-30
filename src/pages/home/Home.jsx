@@ -9,10 +9,7 @@ const Home = () => {
   
   const {Comidas, Bebidas , TraerProductos} = useContext(ProductosContext)
 
-    {Comidas === undefined && Bebidas === undefined && (
-      TraerProductos()
-    )}
-    
+  
   return (
     <>
     <div className='text-center'>

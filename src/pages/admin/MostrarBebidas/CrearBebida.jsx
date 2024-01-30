@@ -10,7 +10,7 @@ import Swal from "sweetalert2";
 const CrearBebida = () => {
   const [show, setShow] = useState(false);
 
-  const { TraerProductos } = useContext(ProductosContext);
+  const { TraerBebidas } = useContext(ProductosContext);
 
   const back = import.meta.env.VITE_API_BACK;
 
@@ -84,7 +84,7 @@ const CrearBebida = () => {
               },
             });
 
-            TraerProductos();
+            TraerBebidas();
             handleClose();
             formik.resetForm();
 

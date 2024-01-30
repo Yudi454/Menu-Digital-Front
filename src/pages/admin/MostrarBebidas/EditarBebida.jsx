@@ -9,7 +9,7 @@ import Swal from "sweetalert2";
 
 const EditarBebida = ({ show, setShow, handleClose }) => {
 
-  const { PasarStates, bebidaPorId, TraerProductos } = useContext(ProductosContext);
+  const { PasarStates, bebidaPorId, TraerBebidas } = useContext(ProductosContext);
 
   const { selectId, setSelectId, bebida, setBebida } = PasarStates
 
@@ -82,7 +82,7 @@ const EditarBebida = ({ show, setShow, handleClose }) => {
               }
             );
     
-            TraerProductos()
+            TraerBebidas()
             handleClose()
             formik.resetForm()
             setBebida(undefined)

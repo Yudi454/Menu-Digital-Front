@@ -8,7 +8,7 @@ import { ProductosContext } from "../../../context/Context";
 import Swal from "sweetalert2";
 
 const EditarComida = ({ show, setShow, handleClose }) => {
-  const { PasarStates, TraerProductos } = useContext(ProductosContext);
+  const { PasarStates, TraerComidas } = useContext(ProductosContext);
 
   const { selectId, setSelectId, comida, setComida } = PasarStates;
 
@@ -79,7 +79,7 @@ const EditarComida = ({ show, setShow, handleClose }) => {
               }
             );
 
-            TraerProductos();
+            TraerComidas();
             handleClose();
             formik.resetForm();
             setComida(undefined);

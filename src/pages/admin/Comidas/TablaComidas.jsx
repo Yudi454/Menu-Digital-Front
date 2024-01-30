@@ -6,7 +6,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 
 const TablaComidas = () => {
-  const { Comidas, PasarStates, comidaPorId, TraerProductos } =
+  const { Comidas, PasarStates, comidaPorId, TraerComidas } =
     useContext(ProductosContext);
 
   const { selectId, setSelectId, comida } = PasarStates;
@@ -77,7 +77,7 @@ const TablaComidas = () => {
           const res = await axios.delete(`${back}/Comida/${id}`);
           console.log(res);
 
-          TraerProductos();
+          TraerComidas();
 
           Swal.fire(
             "Comida eliminada!",
@@ -147,7 +147,7 @@ const TablaComidas = () => {
                     <Button
                       onClick={() => {
                         eliminarComida(Comida._id);
-                        TraerProductos();
+                        TraerComidas();
                       }}
                     >
                       Borrar
@@ -178,7 +178,7 @@ const TablaComidas = () => {
                     <Button
                       onClick={() => {
                         eliminarComida(Comida._id);
-                        TraerProductos();
+                        TraerComidas();
                       }}
                     >
                       Borrar

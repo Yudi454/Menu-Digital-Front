@@ -10,7 +10,7 @@ import Swal from "sweetalert2";
 const CrearComida = () => {
   const [show, setShow] = useState(false);
 
-  const { TraerProductos, PasarStates } = useContext(ProductosContext);
+  const { TraerComidas, PasarStates } = useContext(ProductosContext);
 
   const {Token} = PasarStates
 
@@ -85,7 +85,7 @@ const CrearComida = () => {
           });
           console.log(response);
   
-          TraerProductos();
+          TraerComidas();
           handleClose();
           formik.resetForm();
   

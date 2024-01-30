@@ -9,7 +9,7 @@ import "../../../style/InicioSesion.css";
 import axios from "axios";
 
 const InicioSesion = () => {
-  const { Usuario, PasarStates } = useContext(ProductosContext);
+  const { Usuario, PasarStates,TraerComidas } = useContext(ProductosContext);
   const { MostrarTabla, setMostrarTabla } = PasarStates;
 
   const back = import.meta.env.VITE_API_BACK;
@@ -73,10 +73,11 @@ const InicioSesion = () => {
             "success"
           );
 
+          setMostrarTabla(true);
+          TraerComidas()
         }
         });
       } catch (error) {
-        setMostrarTabla(true);
         console.log(error);
       }
     },

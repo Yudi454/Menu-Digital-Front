@@ -9,7 +9,7 @@ import Swal from "sweetalert2";
 
 const EditarUsuario = ({ show, setShow, handleClose }) => {
 
-    const { PasarStates, usuarioPorId, TraerProductos } = useContext(ProductosContext);
+    const { PasarStates, usuarioPorId, TraerUsuarios } = useContext(ProductosContext);
 
   const { selectId, setSelectId, Usuario, setUsuario } = PasarStates
 
@@ -68,7 +68,7 @@ const EditarUsuario = ({ show, setShow, handleClose }) => {
 
             const response = await axios.put(`${back}/usuarios/${selectId}`, usuario);
 
-            TraerProductos()
+            TraerUsuarios()
             handleClose()
             formik.resetForm()
             setUsuario(undefined)

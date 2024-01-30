@@ -21,21 +21,20 @@ const Administracion = () => {
     PasarStates,
     Comidas,
     Bebidas,
-    TraerProductos,
     traerImagenesCarrusel,
+    TraerComidas,
+    TraerBebidas,
+    TraerUsuarios,
   } = useContext(ProductosContext);
   const {
+    Usuarios,
     MostrarInicioSesion,
     MostrarTabla,
     setMostrarInicioSesion,
     setMostarTabla,
   } = PasarStates;
 
-  {
-    Comidas === undefined &&
-      Bebidas === undefined &&
-      (TraerProductos(), traerImagenesCarrusel());
-  }
+
 
   const [seleccionado, setSeleccionado] = useState("comida");
   const [seleccionadoImagen, setSeleccionadoImagen] = useState("comida");

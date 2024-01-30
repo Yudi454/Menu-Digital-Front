@@ -7,7 +7,7 @@ import { ProductosContext } from "../../../context/Context";
 import EditarBebida from "./EditarBebida";
 
 const TablaBebidas = () => {
-  const { PasarStates, bebidaPorId, TraerProductos, Bebidas } =
+  const { PasarStates, bebidaPorId, TraerBebidas, Bebidas } =
     useContext(ProductosContext);
 
   const { selectId, setSelectId, bebida } = PasarStates;
@@ -95,7 +95,7 @@ const TablaBebidas = () => {
   };
   
   useEffect(() => {
-    TraerProductos();
+    TraerBebidas();
     setBebidaEliminada(false)
   }, [bebidaEliminada]);
 
@@ -155,7 +155,7 @@ const TablaBebidas = () => {
                     <Button
                       onClick={() => {
                         eliminarBebida(Bebida._id);
-                        TraerProductos();
+                        TraerBebidas();
                       }}
                     >
                       Borrar
@@ -186,7 +186,7 @@ const TablaBebidas = () => {
                     <Button
                       onClick={() => {
                         eliminarBebida(Bebida._id);
-                        TraerProductos();
+                        TraerBebidas();
                       }}
                     >
                       Borrar
