@@ -13,7 +13,7 @@ const CrearImagenComida = () => {
   const { TraerProductos, PasarStates, traerComidasCarrusel } =
     useContext(ProductosContext);
 
-  const { imagenesComidas } = PasarStates;
+  const { imagenesComidas, Token } = PasarStates;
 
   const back = import.meta.env.VITE_API_BACK;
 

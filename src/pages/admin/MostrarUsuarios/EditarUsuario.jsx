@@ -11,7 +11,7 @@ const EditarUsuario = ({ show, setShow, handleClose }) => {
 
     const { PasarStates, usuarioPorId, TraerUsuarios } = useContext(ProductosContext);
 
-  const { selectId, setSelectId, Usuario, setUsuario } = PasarStates
+  const { selectId, setSelectId, Usuario, setUsuario, Token } = PasarStates
 
   const back = import.meta.env.VITE_API_BACK
   
@@ -66,7 +66,11 @@ const EditarUsuario = ({ show, setShow, handleClose }) => {
               password: values.Contraseña,
             };
 
-            const response = await axios.put(`${back}/usuarios/${selectId}`, usuario);
+            const response = await axios.put(`${back}/usuarios/${selectId}`, usuario, {
+              headers: {
+                "auth-token": Token
+              },
+            });
 
             TraerUsuarios()
             handleClose()

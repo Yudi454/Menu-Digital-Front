@@ -10,7 +10,9 @@ import Swal from "sweetalert2";
 const CrearBebida = () => {
   const [show, setShow] = useState(false);
 
-  const { TraerBebidas } = useContext(ProductosContext);
+  const { TraerBebidas, PasarStates } = useContext(ProductosContext);
+
+  const { Token } = PasarStates;
 
   const back = import.meta.env.VITE_API_BACK;
 
@@ -80,6 +82,7 @@ const CrearBebida = () => {
 
             const response = await axios.post(`${back}/Bebida`, formData, {
               headers: {
+                "auth-token": Token,
                 "Content-Type": "multipart/form-data",
               },
             });

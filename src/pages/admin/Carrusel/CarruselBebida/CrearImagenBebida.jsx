@@ -73,8 +73,8 @@ const CrearImagenBebida = () => {
 
             const response = await axios.post(`${back}/ImgCarrusel`, formData, {
               headers: {
+                "auth-token": Token,
                 "Content-Type": "multipart/form-data",
-                "auth-token": Token
               },
             });
 

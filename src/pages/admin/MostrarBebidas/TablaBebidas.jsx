@@ -10,7 +10,7 @@ const TablaBebidas = () => {
   const { PasarStates, bebidaPorId, TraerBebidas, Bebidas } =
     useContext(ProductosContext);
 
-  const { selectId, setSelectId, bebida } = PasarStates;
+  const { selectId, setSelectId, bebida, Token } = PasarStates;
 
   const back = import.meta.env.VITE_API_BACK;
 
@@ -77,7 +77,11 @@ const TablaBebidas = () => {
         cancelButtonText: "No, mejor no",
       }).then( async (result) => {
         if (result.isConfirmed) {
-          const res = await axios.delete(`${back}/Bebida/${id}`);
+          const res = await axios.delete(`${back}/Bebida/${id}`, {
+            headers: {
+              "auth-token": Token
+            },
+          });
           console.log(res);
           
           setBebidaEliminada(true);

@@ -12,7 +12,7 @@ const EditarImagenComida = ({ show, setShow, handleClose }) => {
     const { PasarStates, imagenCarruselPorId, traerComidasCarrusel } =
     useContext(ProductosContext);
 
-  const { selectId, setSelectId, imagen, setImagen, imagenesComidas } =
+  const { selectId, setSelectId, imagen, setImagen, imagenesComidas, Token } =
     PasarStates;
 
   const back = import.meta.env.VITE_API_BACK;
@@ -56,6 +56,7 @@ const EditarImagenComida = ({ show, setShow, handleClose }) => {
               formData,
               {
                 headers: {
+                  "auth-token": Token,
                   "Content-Type": "multipart/form-data",
                 },
               }

@@ -10,7 +10,7 @@ const TablaImagenBebida = () => {
   const { PasarStates, imagenCarruselPorId, traerBebidasCarrusel } =
   useContext(ProductosContext);
 
-const { selectId, setSelectId, imagen, imagenesBebidas } = PasarStates;
+const { selectId, setSelectId, imagen, imagenesBebidas, Token } = PasarStates;
 
 const back = import.meta.env.VITE_API_BACK;
 
@@ -67,7 +67,11 @@ const eliminarImagen = (id) => {
       cancelButtonText: "No, mejor no",
     }).then( async (result) => {
       if (result.isConfirmed) {
-        const res = await axios.delete(`${back}/ImgCarrusel/${id}`);
+        const res = await axios.delete(`${back}/ImgCarrusel/${id}`, {
+          headers: {
+            "auth-token": Token
+          },
+        });
         console.log(res);
 
         traerBebidasCarrusel();

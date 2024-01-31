@@ -11,7 +11,7 @@ const EditarBebida = ({ show, setShow, handleClose }) => {
 
   const { PasarStates, bebidaPorId, TraerBebidas } = useContext(ProductosContext);
 
-  const { selectId, setSelectId, bebida, setBebida } = PasarStates
+  const { selectId, setSelectId, bebida, setBebida, Token } = PasarStates
 
   const back = import.meta.env.VITE_API_BACK
 
@@ -77,6 +77,7 @@ const EditarBebida = ({ show, setShow, handleClose }) => {
               formData,
               {
                 headers: {
+                  "auth-token": Token,
                   "Content-Type": "multipart/form-data",
                 },
               }

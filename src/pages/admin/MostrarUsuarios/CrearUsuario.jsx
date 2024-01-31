@@ -12,6 +12,8 @@ const CrearUsuario = () => {
 
   const { TraerUsuarios } = useContext(ProductosContext);
 
+  const {Token} = PasarStates
+
   const back = import.meta.env.VITE_API_BACK;
 
   const handleClose = () => setShow(false);
@@ -69,7 +71,12 @@ const CrearUsuario = () => {
 
             console.log(usuario);
 
-            const response = await axios.post(`${back}/registro`, usuario);
+            const response = await axios.post(`${back}/registro`, usuario, {
+              headers: {
+                "auth-token": Token,
+                "Content-Type": "multipart/form-data"
+              },
+            });
 
             TraerUsuarios();
             handleClose();

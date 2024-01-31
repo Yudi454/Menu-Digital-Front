@@ -10,7 +10,7 @@ import Swal from "sweetalert2";
 const EditarImagenBebida = ({ show, setShow, handleClose }) => {
   const { PasarStates, traerBebidasCarrusel } = useContext(ProductosContext);
 
-  const { selectId, setSelectId, imagen, setImagen, imagenesBebidas } =
+  const { selectId, setSelectId, imagen, setImagen, imagenesBebidas, Token } =
     PasarStates;
 
   const back = import.meta.env.VITE_API_BACK;
@@ -54,6 +54,7 @@ const EditarImagenBebida = ({ show, setShow, handleClose }) => {
               formData,
               {
                 headers: {
+                  "auth-token": Token,
                   "Content-Type": "multipart/form-data",
                 },
               }

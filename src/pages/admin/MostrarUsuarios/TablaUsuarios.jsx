@@ -9,7 +9,7 @@ const TablaUsuarios = () => {
   const { PasarStates, TraerUsuarios, usuarioPorId } =
     useContext(ProductosContext);
 
-  const { selectId, setSelectId, Usuarios, Usuario } = PasarStates;
+  const { selectId, setSelectId, Usuarios, Usuario, Token } = PasarStates;
 
   const back = import.meta.env.VITE_API_BACK;
 
@@ -79,7 +79,11 @@ const TablaUsuarios = () => {
         cancelButtonText: "No, mejor no",
       }).then((result) => {
         if (result.isConfirmed) {
-          const res = axios.delete(`${back}/usuarios/${id}`);
+          const res = axios.delete(`${back}/usuarios/${id}`, {
+            headers: {
+              "auth-token": Token
+            },
+          });
           console.log(res);
 
           setUsuarioEliminado(true);

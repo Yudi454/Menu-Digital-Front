@@ -12,7 +12,7 @@ const CrearImagenPromocional = () => {
 
   const { TraerProductos, PasarStates, traerImagenesCarrusel } = useContext(ProductosContext);
 
-  const {imagenesCarrusel} = PasarStates
+  const {imagenesCarrusel, Token} = PasarStates
 
   const back = import.meta.env.VITE_API_BACK;
 
@@ -66,6 +66,7 @@ posicionTercera = imagenesCarrusel.find((imagen) => imagen.Position === "Tercera
 
             const response = await axios.post(`${back}/ImgCarrusel`, formData, {
               headers: {
+                "auth-token": Token,
                 "Content-Type": "multipart/form-data",
               },
             });

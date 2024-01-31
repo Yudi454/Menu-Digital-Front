@@ -10,7 +10,7 @@ import Swal from "sweetalert2";
 const EditarComida = ({ show, setShow, handleClose }) => {
   const { PasarStates, TraerComidas } = useContext(ProductosContext);
 
-  const { selectId, setSelectId, comida, setComida } = PasarStates;
+  const { selectId, setSelectId, comida, setComida, Token } = PasarStates;
 
   const back = import.meta.env.VITE_API_BACK;
 
@@ -74,6 +74,7 @@ const EditarComida = ({ show, setShow, handleClose }) => {
               formData,
               {
                 headers: {
+                  "auth-token": Token,
                   "Content-Type": "multipart/form-data",
                 },
               }
